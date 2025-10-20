@@ -1,0 +1,71 @@
+{
+  "server": {
+    "host": "BetterSMP-J787.aternos.me",
+    "port": 11415,
+    "version": "1.20.1"
+  },
+  "auth": {
+    "type": "offline",
+    "username": "BetterBender",
+    "password": ""
+  },
+  "mode": {
+    "current": "player",
+    "autoSwitch": false
+  },
+  "safety": {
+    "maxCpuPercent": 45,
+    "maxMemoryMB": 512,
+    "maxBlocksPerHour": 200,
+    "checkIntervalMs": 45000,
+    "enableThermalMonitoring": true,
+    "enableBatteryMonitoring": true,
+    "autoThrottle": true
+  },
+  "dashboard": {
+    "enabled": true,
+    "port": 5000,
+    "adminToken": "CHANGE_THIS_TOKEN_NOW"
+  },
+  "afkMode": {
+    "movementPattern": "random",
+    "movementInterval": 20000,
+    "movementRange": 5,
+    "autoEat": true,
+    "autoRespawn": true,
+    "avoidMobs": true,
+    "statusUpdateInterval": 90000
+  },
+  "playerMode": {
+    "workDuration": 1800000,
+    "restDuration": 300000,
+    "tradeDuration": 600000,
+    "socialDuration": 900000,
+    "exploreDuration": 1200000,
+    "maxBlocksPerCycle": 100,
+    "smartInventory": true,
+    "useChests": true,
+    "helpPlayers": true,
+    "buildCommunity": true,
+    "respondToChat": true
+  },
+  "reconnect": {
+    "enabled": true,
+    "maxAttempts": 75,
+    "initialDelayMs": 5000,
+    "maxDelayMs": 60000,
+    "backoffMultiplier": 1.5
+  },
+  "logging": {
+    "level": "info",
+    "logToFile": true,
+    "logDir": "data/logs",
+    "maxLogSizeMB": 10,
+    "maxLogFiles": 5
+  },
+  "tasks": {
+    "persistDir": "data/tasks",
+    "enablePersistence": true,
+    "maxQueueSize": 100
+  }
+}
