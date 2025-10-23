@@ -121,7 +121,26 @@ async function launchSingleBot() {
   engine.registerAddon(MiningAddon);
   engine.registerAddon(BuildingAddon);
   engine.registerAddon(TradingAddon);
-  
+
+const fs = require('fs');
+const path = require('path');
+
+const customDir = path.join(__dirname, '..', 'addons-custom');
+if (fs.existsSync(customDir)) {
+  for (const file of fs.readdirSync(customDir)) {
+    if (file.endsWith('.js')) {
+      try {
+        const addon = require(path.join(customDir, file));
+        engine.registerAddon(addon);
+        console.log(`[Custom Addon] ${addon.name || file} loaded`);
+      } catch (err) {
+        console.error(`[Custom Addon] Failed to load ${file}:`, err.message);
+      }
+    }
+  }
+}
+
+
   // Start dashboard and bot
   const dashboard = new DashboardServer(config, engine);
   await dashboard.start();

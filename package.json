@@ -5,6 +5,7 @@
   "main": "src/engine.js",
   "scripts": {
     "setup": "node setup.js",
+    "tune": "node src/config-tuner.js",
     "start": "node launcher.js",
     "bot": "node dashboard/server.js",
     "civilization": "node civilization/scripts/start_civilization.js",

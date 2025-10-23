@@ -5,9 +5,9 @@ const fs = require('fs');
 class SafetyMonitor {
   constructor(config = {}, logger = null) {
     this.config = {
-      maxCpuPercent: config.maxCpuPercent || 30,
-      maxMemoryMB: config.maxMemoryMB || 512,
-      maxBlocksPerHour: config.maxBlocksPerHour || 200,
+      maxCpuPercent: config.maxCpuPercent || 70,
+      maxMemoryMB: config.maxMemoryMB || 200,
+      maxBlocksPerHour: config.maxBlocksPerHour || 5000,
       checkIntervalMs: config.checkIntervalMs || 30000,
       enableThermalMonitoring: config.enableThermalMonitoring !== false,
       enableBatteryMonitoring: config.enableBatteryMonitoring !== false,

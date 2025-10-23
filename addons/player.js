@@ -63,7 +63,7 @@ class EnhancedPlayerAddon {
         setTimeout(() => {
           try {
             this.bot.respawn();
-            this._setState('rest');
+            this._setState('explore');
           } catch (err) {
             this.logger.error('[Player] Respawn error:', err.message);
           }
@@ -194,7 +194,7 @@ class EnhancedPlayerAddon {
     this.lastActionTime = now;
     
     try {
-      if (this.bot.health < 6) {
+      if (this.bot.health < 16) {
         this._escapeFromDanger();
         return;
       }
@@ -333,11 +333,11 @@ class EnhancedPlayerAddon {
             this.homeBuilder = new HomeBuilder(this.bot, this.logger);
           }
           
-          this.logger.info('[Player] Starting REAL home construction...');
+          this.logger.info('[Player] Starting Home Construction...');
           const success = await this.homeBuilder.buildBasicHome();
           
           if (success) {
-            this.logger.info('[Player] ✅ HOME ACTUALLY BUILT!');
+            this.logger.info('[Player] ✅ HOME HAS BEEN BUILT!');
             if (this.autonomousGoals) {
               this.autonomousGoals.completeGoal(goal.action);
             }

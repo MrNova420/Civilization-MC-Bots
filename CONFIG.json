@@ -14,13 +14,14 @@
     "autoSwitch": false
   },
   "safety": {
-    "maxCpuPercent": 45,
-    "maxMemoryMB": 512,
-    "maxBlocksPerHour": 200,
+    "maxCpuPercent": 70,
+    "maxMemoryMB": 150,
+    "maxBlocksPerHour": 5000,
     "checkIntervalMs": 45000,
     "enableThermalMonitoring": true,
     "enableBatteryMonitoring": true,
-    "autoThrottle": true
+    "autoThrottle": false,
+    "enableIdleMode": false
   },
   "dashboard": {
     "enabled": true,
@@ -42,7 +43,7 @@
     "tradeDuration": 600000,
     "socialDuration": 900000,
     "exploreDuration": 1200000,
-    "maxBlocksPerCycle": 100,
+    "maxBlocksPerCycle": 5000,
     "smartInventory": true,
     "useChests": true,
     "helpPlayers": true,
@@ -51,13 +52,13 @@
   },
   "reconnect": {
     "enabled": true,
-    "maxAttempts": 75,
+    "maxAttempts": 10000,
     "initialDelayMs": 5000,
     "maxDelayMs": 60000,
     "backoffMultiplier": 1.5
   },
   "logging": {
-    "level": "info",
+    "level": "debug",
     "logToFile": true,
     "logDir": "data/logs",
     "maxLogSizeMB": 10,
@@ -66,6 +67,6 @@
   "tasks": {
     "persistDir": "data/tasks",
     "enablePersistence": true,
-    "maxQueueSize": 100
+    "maxQueueSize": 500
   }
 }

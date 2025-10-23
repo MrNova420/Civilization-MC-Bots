@@ -10,6 +10,8 @@ const { getAuthOptions } = require('./utils/auth');
 const fs = require('fs');
 const path = require('path');
 
+
+
 class BotEngine {
   constructor(config) {
     this.config = config;
@@ -459,23 +461,23 @@ class BotEngine {
       }
     }
   }
-  
+
   getBot() {
     return this.bot;
   }
-  
+
   getSafety() {
     return this.safety;
   }
-  
+
   getTaskManager() {
     return this.taskManager;
   }
-  
+
   getLogger() {
     return this.logger;
   }
-  
+
   getStatus() {
     return {
       running: this.running,
@@ -489,15 +491,15 @@ class BotEngine {
       state: this.stateManager.getState()
     };
   }
-  
+
   getStateManager() {
     return this.stateManager;
   }
-  
+
   getActivityTracker() {
     return this.activityTracker;
   }
-  
+
   getAddon(name) {
     return this.addons.get(name);
   }
@@ -505,22 +507,59 @@ class BotEngine {
 
 if (require.main === module) {
   const configPath = process.argv[2] || 'CONFIG.json';
-  
+
   if (!fs.existsSync(configPath)) {
     console.error(`Config file not found: ${configPath}`);
     console.log('Please copy CONFIG.example.json to CONFIG.json and configure it');
     process.exit(1);
   }
-  
+
   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-  
+
   const engine = new BotEngine(config);
-  
+  const PathFinding = require('../addons/pathfinding');
   const AFKAddon = require('../addons/afk');
   const PlayerAddon = require('../addons/player');
-  
+  const TradingAddon = require('../addon/trading');
+  const MiningAddon = require('../addon/mining');
+  const  CraftingAddon = require('../addon/crafting');
+  const BuildingAddon = require('../addon/building');
+
+  engine.registerAddon(PathFindingAddon);
   engine.registerAddon(AFKAddon);
   engine.registerAddon(PlayerAddon);
+  engine.registerAddon(TradingAddon);
+  engine.registerAddon(MiningAddon);
+  engine.registerAddon(CraftingAddon);
+  engine.registerAddon(BuildingAddon);
+
+  // ===== CUSTOM ADDON AUTO-LOADER =====
+const fs = require('fs');
+const path = require('path');
+
+try {
+  const customDir = path.join(__dirname, '..', 'addons-custom');
+  if (fs.existsSync(customDir)) {
+    const files = fs.readdirSync(customDir).filter(f => f.endsWith('.js'));
+    if (files.length) console.log(`[Custom Addon Loader] Found ${files.length} file(s)`);
+    for (const file of files) {
+      try {
+        const addon = require(path.join(customDir, file));
+        engine.registerAddon(addon);
+        console.log(`[Custom Addon] Loaded: ${addon.name || file}`);
+      } catch (err) {
+        console.error(`[Custom Addon] Failed to load ${file}:`, err.message);
+      }
+    }
+  } else {
+    console.log('[Custom Addon Loader] No addons-custom/ folder found — skipping.');
+  }
+} catch (err) {
+  console.error('[Custom Addon Loader] Error:', err);
+}
+// ===== END CUSTOM ADDON AUTO-LOADER =====
+
+
   
   engine.start();
 }
