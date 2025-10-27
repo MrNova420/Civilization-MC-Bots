@@ -557,7 +557,8 @@ class BotIntelligence {
       const goal = new goals.GoalNear(x, y, z, 1);
       await this.bot.pathfinder.goto(goal);
     } catch (error) {
-      // Pathfinding failed, ignore
+      // Pathfinding failed - log for debugging but continue
+      this.logger.debug(`[Bot ${this.botName}] Pathfinding failed to (${x}, ${y}, ${z}): ${error.message}`);
     }
   }
   
