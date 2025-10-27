@@ -22,6 +22,9 @@ class CivilizationDatabase {
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL UNIQUE,
         username TEXT NOT NULL,
+        role TEXT DEFAULT 'worker',
+        personality_data TEXT,
+        status TEXT DEFAULT 'active',
         created_at INTEGER NOT NULL,
         last_active INTEGER NOT NULL,
         position_x REAL,
@@ -30,6 +33,8 @@ class CivilizationDatabase {
         dimension TEXT DEFAULT 'overworld',
         health REAL DEFAULT 20,
         food INTEGER DEFAULT 20,
+        xp_level INTEGER DEFAULT 0,
+        xp_points INTEGER DEFAULT 0,
         level INTEGER DEFAULT 0,
         experience INTEGER DEFAULT 0
       );
