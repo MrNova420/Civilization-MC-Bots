@@ -134,6 +134,86 @@ class DashboardServer {
       res.json(safeConfig);
     });
     
+    // Health check endpoint for monitoring
+    this.app.get('/health', (req, res) => {
+      const health = {
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        version: require('../package.json').version
+      };
+      
+      if (this.engine) {
+        const botStatus = this.engine.getStatus();
+        health.bot = {
+          connected: botStatus.connected || false,
+          health: botStatus.health || 0,
+          food: botStatus.food || 0
+        };
+      }
+      
+      res.json(health);
+    });
+    
+    // Readiness check for orchestration systems
+    this.app.get('/ready', (req, res) => {
+      const isReady = this.engine !== null;
+      const readiness = {
+        ready: isReady,
+        timestamp: new Date().toISOString()
+      };
+      
+      if (isReady) {
+        const botStatus = this.engine.getStatus();
+        readiness.botInitialized = botStatus.connected || false;
+      }
+      
+      res.status(isReady ? 200 : 503).json(readiness);
+    });
+    
+    // Metrics endpoint for monitoring systems (Prometheus-compatible)
+    this.app.get('/metrics', (req, res) => {
+      const metrics = [];
+      const mem = process.memoryUsage();
+      
+      // Process metrics
+      metrics.push(`# HELP nodejs_heap_size_bytes Node.js heap size in bytes`);
+      metrics.push(`# TYPE nodejs_heap_size_bytes gauge`);
+      metrics.push(`nodejs_heap_size_bytes ${mem.heapUsed}`);
+      
+      metrics.push(`# HELP nodejs_external_memory_bytes Node.js external memory in bytes`);
+      metrics.push(`# TYPE nodejs_external_memory_bytes gauge`);
+      metrics.push(`nodejs_external_memory_bytes ${mem.external}`);
+      
+      metrics.push(`# HELP process_uptime_seconds Process uptime in seconds`);
+      metrics.push(`# TYPE process_uptime_seconds counter`);
+      metrics.push(`process_uptime_seconds ${Math.floor(process.uptime())}`);
+      
+      // Bot metrics
+      if (this.engine) {
+        const botStatus = this.engine.getStatus();
+        metrics.push(`# HELP bot_connected Bot connection status (1=connected, 0=disconnected)`);
+        metrics.push(`# TYPE bot_connected gauge`);
+        metrics.push(`bot_connected ${botStatus.connected ? 1 : 0}`);
+        
+        if (botStatus.health !== undefined) {
+          metrics.push(`# HELP bot_health Bot health points`);
+          metrics.push(`# TYPE bot_health gauge`);
+          metrics.push(`bot_health ${botStatus.health}`);
+        }
+        
+        if (botStatus.food !== undefined) {
+          metrics.push(`# HELP bot_food Bot food level`);
+          metrics.push(`# TYPE bot_food gauge`);
+          metrics.push(`bot_food ${botStatus.food}`);
+        }
+      }
+      
+      res.set('Content-Type', 'text/plain; version=0.0.4');
+      res.send(metrics.join('\n') + '\n');
+    });
+    
     this.app.post('/api/server/config', this._authenticate.bind(this), (req, res) => {
       const { host, port, version } = req.body;
       

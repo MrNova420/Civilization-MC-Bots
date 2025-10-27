@@ -27,7 +27,7 @@ try {
       const content = fs.readFileSync(filePath, 'utf8');
       const data = JSON.parse(content);
       
-      let errors = [];
+      const errors = [];
       
       if (typeof data !== 'object' || data === null) {
         errors.push('Root must be an object');

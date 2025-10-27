@@ -94,7 +94,7 @@ class BotIntelligence {
   }
   
   async _initialize() {
-    let botData = this.db.getBot(this.botId);
+    const botData = this.db.getBot(this.botId);
     
     if (!botData) {
       this.db.createBot({
@@ -197,12 +197,13 @@ class BotIntelligence {
     this.isPerformingAction = true;
     this.lastActionTime = now;
     
+    let decision = null;
     try {
       const context = this._gatherContext();
       
       this.currentEmotions = this.db.getLatestEmotions(this.botId);
       
-      const decision = this.decisionEngine.selectAction(
+      decision = this.decisionEngine.selectAction(
         this.botId,
         this.personality,
         this.currentEmotions,
@@ -472,7 +473,9 @@ class BotIntelligence {
     if (!hasWood) {
       try {
         this.bot.chat('Need to gather some wood first...');
-      } catch (e) {}
+      } catch (e) {
+        // Ignore chat errors
+      }
       return;
     }
     
@@ -482,7 +485,9 @@ class BotIntelligence {
         'Building something cool',
         'Time to build'
       ]));
-    } catch (e) {}
+    } catch (e) {
+      // Ignore chat errors
+    }
     
     this.memorySystem.recordAchievement(this.botId, 'building', 'Started construction');
   }
@@ -497,7 +502,9 @@ class BotIntelligence {
       await this._moveToPosition(tree.position.x, tree.position.y, tree.position.z);
       try {
         if (this.isConnected) this.bot.chat('Gathering some resources');
-      } catch (e) {}
+      } catch (e) {
+        // Ignore chat errors
+      }
     } else {
       await this._wander();
     }
@@ -526,7 +533,9 @@ class BotIntelligence {
   async _rest() {
     try {
       if (this.isConnected) this.bot.chat(this._randomPhrase(['Taking a break', 'Resting a bit', 'afk']));
-    } catch (e) {}
+    } catch (e) {
+      // Ignore chat errors
+    }
   }
   
   async _wander() {
@@ -548,6 +557,8 @@ class BotIntelligence {
       const goal = new goals.GoalNear(x, y, z, 1);
       await this.bot.pathfinder.goto(goal);
     } catch (error) {
+      // Pathfinding failed - log for debugging but continue
+      this.logger.debug(`[Bot ${this.botName}] Pathfinding failed to (${x}, ${y}, ${z}): ${error.message}`);
     }
   }
   
@@ -568,7 +579,9 @@ class BotIntelligence {
       setTimeout(() => {
         try {
           if (this.isConnected) this.bot.chat(this._randomPhrase(['lol', 'nice', 'cool', 'interesting']));
-        } catch (e) {}
+        } catch (e) {
+          // Ignore chat errors
+        }
       }, 2000 + Math.random() * 3000);
     }
   }
@@ -579,7 +592,9 @@ class BotIntelligence {
       setTimeout(() => {
         try {
           if (this.isConnected) this.bot.chat(`Hey ${player.username}!`);
-        } catch (e) {}
+        } catch (e) {
+          // Ignore chat errors
+        }
       }, 3000 + Math.random() * 5000);
     }
   }
