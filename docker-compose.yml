@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  betterbender:
+    build: .
+    container_name: betterbender-bot
+    restart: unless-stopped
+    
+    ports:
+      - "5000:5000"  # Dashboard
+    
+    volumes:
+      - ./CONFIG.json:/app/CONFIG.json:ro
+      - bot-data:/app/data
+      - bot-logs:/app/data/logs
+    
+    environment:
+      - NODE_ENV=production
+      - TZ=UTC
+    
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); })"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  civilization:
+    build: .
+    container_name: civilization-system
+    restart: unless-stopped
+    
+    command: ["node", "civilization/index.js"]
+    
+    ports:
+      - "3001:3001"  # Civilization Dashboard
+      - "8080:8080"  # WebSocket Broker
+    
+    volumes:
+      - ./civilization/config:/app/civilization/config:ro
+      - civ-data:/app/data/civilization
+      - civ-logs:/app/data/logs
+    
+    environment:
+      - NODE_ENV=production
+      - TZ=UTC
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  bot-data:
+    driver: local
+  bot-logs:
+    driver: local
+  civ-data:
+    driver: local
+  civ-logs:
+    driver: local
+
+networks:
+  default:
+    name: betterbender-network
