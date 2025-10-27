@@ -138,7 +138,7 @@ class PresetGenerator {
     }
     
     // Adjust to match exact count
-    let total = Object.values(distribution).reduce((sum, val) => sum + val, 0);
+    const total = Object.values(distribution).reduce((sum, val) => sum + val, 0);
     if (total < botCount) {
       distribution.construction += (botCount - total);
     }

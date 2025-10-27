@@ -683,11 +683,6 @@ class BuildingSystem {
     return true;
   }
 
-  getMaterialsNeeded(structureType) {
-    const template = this.structureTemplates[structureType];
-    return template ? template.materials : null;
-  }
-
   getAvailableStructures() {
     return Object.keys(this.structureTemplates);
   }

@@ -29,7 +29,7 @@ class ReconnectManager {
   }
   
   getDelay() {
-    let baseDelay = this.initialDelayMs * Math.pow(this.backoffMultiplier, this.attempts);
+    const baseDelay = this.initialDelayMs * Math.pow(this.backoffMultiplier, this.attempts);
     
     if (this.lastErrorType === 'ECONNREFUSED' && this.consecutiveFailures > 5) {
       const offlineDelay = Math.min(baseDelay * 3, 180000);

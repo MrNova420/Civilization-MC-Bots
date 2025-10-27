@@ -105,7 +105,9 @@ class BotCommunication {
     if (fromBot.bot && fromBot.bot.isConnected) {
       try {
         fromBot.bot.bot.chat(message);
-      } catch (e) {}
+      } catch (e) {
+        // Ignore chat errors - bot may have disconnected
+      }
     }
 
     this.logger.info(`[BotComm] ${fromBot.name} broadcast: ${message} (${recipients.length} recipients)`);

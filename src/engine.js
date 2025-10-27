@@ -517,7 +517,7 @@ if (require.main === module) {
   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
   const engine = new BotEngine(config);
-  const PathFinding = require('../addons/pathfinding');
+  const PathFindingAddon = require('../addons/pathfinding');
   const AFKAddon = require('../addons/afk');
   const PlayerAddon = require('../addons/player');
   const TradingAddon = require('../addon/trading');
