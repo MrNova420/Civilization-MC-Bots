@@ -11,6 +11,8 @@
     "civilization": "node civilization/scripts/start_civilization.js",
     "dashboard": "node launcher.js",
     "test": "node test/smoke.js",
+    "test:unit": "node test/unit-tests.js",
+    "test:all": "npm run test && npm run test:unit",
     "test:full": "npm test && npm run lint",
     "lint": "eslint src/ addons/ civilization/ test/ *.js --max-warnings 10",
     "lint:fix": "eslint src/ addons/ civilization/ test/ *.js --fix",
