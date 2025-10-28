@@ -406,7 +406,7 @@ BetterBender/
 ```
 
 **Bot Keeps Dying**
-✅ Fixed in v2.0.1! Bot now has better threat detection and escape behavior.
+✅ Fixed in v2.0.2! Bot now has better threat detection and escape behavior.
 - Ensure spawn point is safe (well-lit, enclosed)
 - Switch to player mode for smarter behavior
 - Give bot starting items (food, basic armor)
@@ -422,7 +422,7 @@ Try:
 - http://127.0.0.1:5000
 
 **Custom Addons Not Loading**
-✅ Fixed in v2.0.1! Place custom addons in `./addons-custom/` folder.
+✅ Fixed in v2.0.2! Place custom addons in `./addons-custom/` folder.
 
 **Configuration Not Working**
 - Verify `CONFIG.json` exists and is valid JSON

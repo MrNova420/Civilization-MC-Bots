@@ -59,7 +59,7 @@ npm install
 
 ### Issue: Bot repeatedly dies from mobs in AFK mode
 
-**Recent Fix (v2.0.1):**
+**Recent Fix (v2.0.2):**
 We've significantly improved bot survival in AFK mode:
 - Increased threat detection range (16 → 20 blocks)
 - More aggressive fleeing (starts at health < 16 instead of < 14)
@@ -142,7 +142,7 @@ We've significantly improved bot survival in AFK mode:
 
 ### Issue: Custom addons in `addons-custom/` folder not loading
 
-**Recent Fix (v2.0.1):**
+**Recent Fix (v2.0.2):**
 Fixed incorrect path in launcher.js (was `../addons-custom`, now `./addons-custom`)
 
 **Verify Fix Worked:**
@@ -365,11 +365,18 @@ If your issue isn't listed here:
 
 ## Version-Specific Fixes
 
-### v2.0.1 (Current)
+### v2.0.2 (Current)
 - ✅ Fixed launcher.js custom addon loading path
 - ✅ Fixed duplicate code in launcher.js
 - ✅ Improved bot survival in AFK mode
 - ✅ Better threat detection and fleeing
+- ✅ Added comprehensive troubleshooting guide
+
+### v2.0.1
+- ✅ Fixed CPU calculation and monitoring
+- ✅ Smart reconnection for offline servers
+- ✅ Memory leak prevention
+- ✅ Performance optimizations
 
 ### Updating to Latest Version
 ```bash
