@@ -53,7 +53,8 @@ class AFKAddon {
         if (this.bot.food < 18 && this.config.autoEat) {
           this._tryEat();
         }
-        if (this.bot.health < 10) {
+        // More aggressive fleeing when health drops
+        if (this.bot.health < 12) {
           this._emergencyFlee();
         }
       }
@@ -91,7 +92,7 @@ class AFKAddon {
       if (!this.isFleeing) {
         this._checkForThreats();
       }
-    }, 300);
+    }, 200);
     
     const statusInterval = this.config.statusUpdateInterval || 90000;
     this.statusInterval = setInterval(() => {
@@ -185,7 +186,7 @@ class AFKAddon {
     
     try {
       const angle = Math.random() * Math.PI * 2;
-      const distance = 60;
+      const distance = 80; // Increased flee distance
       
       const dx = Math.cos(angle) * distance;
       const dz = Math.sin(angle) * distance;
@@ -206,7 +207,7 @@ class AFKAddon {
           this.bot.clearControlStates();
         }
         this.isFleeing = false;
-      }, 8000);
+      }, 10000); // Increased flee duration
       
     } catch (err) {
       this.logger.error('[AFK] Emergency flee error:', err.message);
@@ -233,7 +234,7 @@ class AFKAddon {
       
       const nearbyHostiles = hostileMobs.filter(mob => {
         const distance = this.bot.entity.position.distanceTo(mob.position);
-        return distance < 16;
+        return distance < 20; // Increased detection range
       }).sort((a, b) => {
         const distA = this.bot.entity.position.distanceTo(a.position);
         const distB = this.bot.entity.position.distanceTo(b.position);
@@ -245,7 +246,8 @@ class AFKAddon {
         const distance = this.bot.entity.position.distanceTo(closestMob.position);
         const health = this.bot.health || 0;
         
-        if (distance < 12 || health < 14 || nearbyHostiles.length > 1) {
+        // More aggressive fleeing: start fleeing earlier and at higher health
+        if (distance < 15 || health < 16 || nearbyHostiles.length > 0) {
           this._fleeFromMob(closestMob);
         }
       }
@@ -270,7 +272,7 @@ class AFKAddon {
       const distance = Math.sqrt(dx * dx + dz * dz);
       
       if (distance > 0.1) {
-        const fleeDistance = 50;
+        const fleeDistance = 70; // Increased flee distance
         const escapePos = currentPos.offset(
           (dx / distance) * fleeDistance,
           0,
@@ -293,7 +295,7 @@ class AFKAddon {
           this.bot.clearControlStates();
         }
         this.isFleeing = false;
-      }, 7000);
+      }, 9000); // Increased flee duration
       
     } catch (err) {
       this.logger.error('[AFK] Flee error:', err.message);

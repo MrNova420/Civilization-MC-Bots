@@ -1,0 +1,47 @@
+{
+  "passed": 48,
+  "failed": 1,
+  "warnings": 0,
+  "categories": {
+    "structure": {
+      "passed": 7,
+      "failed": 0
+    },
+    "config": {
+      "passed": 4,
+      "failed": 0
+    },
+    "core": {
+      "passed": 6,
+      "failed": 1
+    },
+    "addons": {
+      "passed": 7,
+      "failed": 0
+    },
+    "civilization": {
+      "passed": 5,
+      "failed": 0
+    },
+    "scripts": {
+      "passed": 4,
+      "failed": 0
+    },
+    "dashboard": {
+      "passed": 3,
+      "failed": 0
+    },
+    "documentation": {
+      "passed": 6,
+      "failed": 0
+    },
+    "features": {
+      "passed": 3,
+      "failed": 0
+    },
+    "build": {
+      "passed": 3,
+      "failed": 0
+    }
+  }
+}
