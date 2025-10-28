@@ -1,5 +1,47 @@
 # BetterBender 2.0 - Changelog
 
+## Version 2.0.2 - October 28, 2025
+
+### 🐛 Critical Bug Fixes
+
+#### Launcher.js Issues
+- **Fixed duplicate code** in launcher.js (lines 125-142)
+- **Fixed custom addon loading path** - Changed from `../addons-custom` to `./addons-custom`
+- Removed duplicate fs/path require statements
+- Custom addons now load correctly from the proper directory
+
+#### AFK Mode Survival Improvements
+- **Massively improved bot survival** - Bot was repeatedly dying from mobs
+- Increased threat detection range: 16 → 20 blocks
+- More aggressive fleeing: starts at health < 16 (was < 14)
+- Increased flee distance: 50-60 → 70-80 blocks  
+- Extended flee duration: 7-8s → 9-10s
+- Faster threat checking: 300ms → 200ms intervals
+- Bot now flees from ANY nearby hostile mob (was only multiple mobs)
+- Better emergency response to low health situations
+
+### 📚 Documentation Improvements
+
+#### New Troubleshooting Guide
+- Created comprehensive `TROUBLESHOOTING.md` with solutions for:
+  - Bot not starting issues
+  - Configuration problems
+  - Bot death/survival issues
+  - Connection problems
+  - Custom addon loading
+  - Dashboard accessibility
+  - Performance optimization
+- Updated README.md with quick troubleshooting section
+- Added links to detailed troubleshooting guide
+
+### ✅ Testing & Validation
+- All smoke tests passing (22/22)
+- Verified no new linting errors
+- Confirmed configuration loading works correctly
+- Custom addon system fully functional
+
+---
+
 ## Version 2.0.1 - October 16, 2025
 
 ### 🐛 Critical Bug Fixes

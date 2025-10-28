@@ -393,23 +393,43 @@ BetterBender/
 
 ## ⚠️ Troubleshooting
 
-### Connection Refused
+**📖 For detailed troubleshooting, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md)**
+
+### Quick Fixes
+
+**Connection Refused**
 ✅ Server is offline - bot will auto-retry
 
-### High CPU
+**High CPU**
 ```json
 { "safety": { "maxCpuPercent": 30 } }
 ```
 
-### Bot Not Building
+**Bot Keeps Dying**
+✅ Fixed in v2.0.1! Bot now has better threat detection and escape behavior.
+- Ensure spawn point is safe (well-lit, enclosed)
+- Switch to player mode for smarter behavior
+- Give bot starting items (food, basic armor)
+
+**Bot Not Building**
 - Make sure mode is "player"
 - Give it 10-15 minutes to gather resources
 - Check dashboard for current activity
 
-### Can't Access Dashboard
+**Can't Access Dashboard**
 Try:
 - http://localhost:5000
 - http://127.0.0.1:5000
+
+**Custom Addons Not Loading**
+✅ Fixed in v2.0.1! Place custom addons in `./addons-custom/` folder.
+
+**Configuration Not Working**
+- Verify `CONFIG.json` exists and is valid JSON
+- Restart bot completely after config changes
+- Check file permissions
+
+**See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for more solutions**
 
 ---
 
