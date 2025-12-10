@@ -1,6 +1,7 @@
 # 🤖 BetterBender 2.0 - Unified Autonomous Minecraft Bot System
 
 **One complete system with two modes: Single autonomous bot OR full AI civilization**
+
 [![Status: Under Development](https://img.shields.io/badge/status-under--development-orange.svg)]()
 [![Partially Ready to Use](https://img.shields.io/badge/Partially%20Ready%20to%20Use-Partially%20Ready%20to%20Use.svg)]()
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
